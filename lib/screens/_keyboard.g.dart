@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'keyboard.dart';
+part of '_keyboard.dart';
 
 // **************************************************************************
 // StoreGenerator

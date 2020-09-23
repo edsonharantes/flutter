@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'keyboard.dart';
+import 'package:hello_world/widgets/keyBoard.dart';
+import '_keyboard.dart';
 
 class MyHome extends StatefulWidget {
   @override
@@ -16,26 +17,40 @@ class MyHomeState extends State<MyHome> {
       appBar: AppBar(
         title: Text("Rotina", style: TextStyle(color: Colors.black87)),
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: Colors.black),
         automaticallyImplyLeading: false,
       ),
       body: Column(children: <Widget>[
         Row(
           children: <Widget>[
-            Observer(
-              builder: (_) {
-                return Text('${key.counter}',
-                    style: TextStyle(color: Colors.white, fontSize: 34));
-              },
+            Expanded(
+              child: Observer(
+                builder: (_) {
+                  return Text('${key.counter}',
+                      style: TextStyle(color: Colors.white, fontSize: 34));
+                },
+              ),
             ),
-            Text("tags")
           ],
         ),
         Row(
-          children: <Widget>[Text("this is where the history is")],
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                child: Text("hello"),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1)),
+              ),
+            )
+          ],
         ),
         Row(
-          children: <Widget>[new MyKeyBoard(controller: key)],
+          children: <Widget>[
+            Container(
+                child: MyKeyBoard(controller: key),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1))),
+          ],
           mainAxisAlignment: MainAxisAlignment.end,
         )
       ], mainAxisAlignment: MainAxisAlignment.spaceEvenly),
@@ -53,77 +68,6 @@ class MyHomeState extends State<MyHome> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class MyKeyBoard extends StatefulWidget {
-  final Controller_key controller;
-
-  const MyKeyBoard({Key key, this.controller}) : super(key: key);
-
-  MyKeyboardState createState() => MyKeyboardState();
-}
-
-class MyKeyboardState extends State<MyKeyBoard> {
-  Widget buildButton(String buttonText) {
-    return OutlineButton(
-        child: Text(
-          buttonText,
-          style: new TextStyle(
-              fontSize: 20.0, fontWeight: FontWeight.bold, height: 2.3),
-        ),
-        onPressed: () {
-          if (buttonText != "C") {
-            widget.controller.increment(buttonText);
-          } else {
-            widget.controller.clear();
-          }
-
-          print(widget.controller.counter);
-        },
-        color: Colors.white,
-        textColor: Colors.black54,
-        padding: new EdgeInsets.all(18.0));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              buildButton("0"),
-              buildButton(","),
-              buildButton("C")
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              buildButton("1"),
-              buildButton("2"),
-              buildButton("3")
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              buildButton("4"),
-              buildButton("5"),
-              buildButton("6")
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              buildButton("7"),
-              buildButton("8"),
-              buildButton("9")
-            ],
-          ),
-        ],
-        verticalDirection: VerticalDirection.up,
-      ),
-      decoration: BoxDecoration(color: Colors.white, border: Border.all()),
     );
   }
 }
